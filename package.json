@@ -1,0 +1,37 @@
+{
+  "name": "vue-three",
+  "version": "0.1.0",
+  "description": "three.js components for vue.js",
+  "main": "dist/build.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seancheung/vue-three.git"
+  },
+  "keywords": [
+    "threejs",
+    "vue",
+    "webgl",
+    "canvas",
+    "3d"
+  ],
+  "author": "Sean Cheung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seancheung/vue-three/issues"
+  },
+  "homepage": "https://github.com/seancheung/vue-three#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "css-loader": "^0.28.1",
+    "three": "^0.85.2",
+    "vue": "^2.3.3",
+    "vue-loader": "^12.0.4",
+    "vue-template-compiler": "^2.3.3",
+    "webpack": "^2.5.1"
+  }
+}
