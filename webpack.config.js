@@ -1,11 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        build: './src/index.js',
+        app: './main.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'build.js'
+        filename: '[name].js'
     },
 
     module: {
@@ -28,6 +32,15 @@ module.exports = {
         }
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin()
-    ]
+        new webpack.optimize.UglifyJsPlugin(),
+        new HtmlWebpackPlugin({
+            template: './index.html',
+            chunks: ['app']
+        }),
+    ],
+
+    devServer: {
+        contentBase: path.join(__dirname, "dist"),
+        port: 9000
+    }
 }
