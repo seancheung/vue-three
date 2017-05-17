@@ -7,10 +7,8 @@
 
 <script>
 import { WebGLRenderer } from 'three';
-import Vue from 'vue';
 
 export default {
-  name: 'webgl-renderer',
   props: {
     canvas: HTMLElement,
     context: WebGLRenderingContext,
@@ -56,17 +54,26 @@ export default {
       renderer: null
     }
   },
+  watch: {
+    width(val) {
+      this.resize();
+    },
+    height(val) {
+      this.resize();
+    }
+  },
   methods: {
     render() {
+      this.$emit('update');
       this.renderer.render(this.scene, this.camera);
     },
     resize() {
-      this.renderer.setSize(this.width || window.innerWidth, this.height || window.innerHeight);
+      this.renderer.setSize(this.width, this.height);
     }
   },
   mounted() {
-    this.camera = this.$slots.camera[0].componentInstance.camera;
-    this.scene = this.$slots.scene[0].componentInstance.scene;
+    this.camera = this.$slots.camera[0].componentInstance.object;
+    this.scene = this.$slots.scene[0].componentInstance.object;
     this.renderer = new WebGLRenderer({
       canvas: this.canvas || this.$el,
       context: this.context,
@@ -79,7 +86,6 @@ export default {
       depth: this.depth,
       logarithmicDepthBuffer: this.logarithmicDepthBuffer
     });
-    window.addEventListener('resize', this.resize, true);
     this.resize();
     this.render();
   }

@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import { PerspectiveCamera, Vector3 } from 'three';
-import Vue from 'vue';
+import { PerspectiveCamera } from 'three';
+import Camera from './Camera';
 
 export default {
-  name: 'perspective-camera',
+  extends: Camera,
   props: {
     fov: {
       type: Number,
@@ -24,25 +24,18 @@ export default {
     far: {
       type: Number,
       default: 1000
-    },
-    position: {
-      type: Vector3,
-      default: () => new Vector3(0, 0, 5)
     }
   },
-  data() {
-    return {
-      camera: null
+  watch: {
+    aspect(val) {
+      this.object.aspect = val;
+      this.object.updateProjectionMatrix();
     }
   },
   methods: {
-    reposition() {
-      this.camera.position.copy(this.position);
+    instantiate() {
+      this.object = new PerspectiveCamera(this.fov, this.aspect, this.near, this.far);
     }
-  },
-  mounted() {
-    this.camera = new PerspectiveCamera(this.fov, this.aspect || window.innerWidth / window.innerHeight, this.near, this.far);
-    this.reposition();
   }
 }
 </script>
